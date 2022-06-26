@@ -14,13 +14,23 @@ public class GenerateAst {
 	String outputDir = args[0];
 	defineAst(outputDir, "Expr",
 		  Arrays.asList(
+				"Assign : Token name, Expr value",
 				"Binary : Expr left, Token operator, Expr right",
 				"Grouping : Expr expression",
 				"Literal : Object value",
 				"Unary : Token operator, Expr right",
-				"Conditional: Expr predicate, Expr exprTrue, Expr exprFalse"
+				"Conditional: Expr predicate, Expr exprTrue, Expr exprFalse",
+				"Variable : Token name"
 				));
-						   
+
+	defineAst(outputDir, "Stmt",
+		  Arrays.asList(
+				"Block      : List<Stmt> statements",
+				"Expression : Expr expression",
+				"Var        : Token name, Expr initializer",
+				"Print      : Expr expression"
+				));
+				
     }
 
     private static void defineAst(String outputDir, String baseName, List<String> types) throws IOException {
