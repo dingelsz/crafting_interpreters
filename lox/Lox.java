@@ -35,7 +35,9 @@ public class Lox {
     private static void runPrompt() throws IOException {
 	InputStreamReader input = new InputStreamReader(System.in);
 	BufferedReader reader = new BufferedReader(input);
-
+	System.out.println("********************************************************************************");
+	System.out.print("Welcome to Lox! Enter your code below...\n");
+	System.out.println("********************************************************************************");
 	for (;;) {
 	    System.out.print("> ");
 	    String line = reader.readLine();
@@ -56,8 +58,8 @@ public class Lox {
 	    Stmt statement = statements.get(0);
 	    if (statement instanceof Stmt.Expression) {
 		Expr expression = ((Stmt.Expression)statement).expression;
-		System.out.println("DEBUG: " + new AstPrinter().print(expression));
-		System.out.println(interpreter.interpret(expression));
+		// System.out.println("DEBUG: " + new AstPrinter().print(expression));
+		// System.out.println(interpreter.interpret(expression));
 	    }
 	}
 
