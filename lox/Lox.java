@@ -58,7 +58,7 @@ public class Lox {
 	    Stmt statement = statements.get(0);
 	    if (statement instanceof Stmt.Expression) {
 		Expr expression = ((Stmt.Expression)statement).expression;
-		// System.out.println("DEBUG: " + new AstPrinter().print(expression));
+		System.out.println("DEBUG: " + new AstPrinter().print(expression));
 		// System.out.println(interpreter.interpret(expression));
 	    }
 	}

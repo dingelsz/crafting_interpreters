@@ -33,7 +33,7 @@ class Scanner {
 	keywords.put("super"	, SUPER);
 	keywords.put("this"	, THIS);
 	keywords.put("true"	, TRUE);
-	keywords.put("var"	, VAR);
+	keywords.put("let"	, VAR);
 	keywords.put("while"	, WHILE);
     }
 
@@ -112,6 +112,13 @@ class Scanner {
 		number();
 	    } else if (isAlpha(c)) {
 		identifier();
+	    } else if (c == '$') {
+		if (peek() == '{') {
+		    advance();
+		    addToken(LAMBDA_START);
+		} else {
+		    identifier();		    
+		}
 	    } else {
 		Lox.error(line, "Unexpected character.");
 	    }
@@ -120,7 +127,7 @@ class Scanner {
     }
 
     private void identifier() {
-	while (isAlphaNumeric(peek())) advance();
+	while (isAlphaNumeric(peek()) || peek() == '$') advance();
 
 	String text = source.substring(start, current);
 	TokenType type = keywords.get(text);

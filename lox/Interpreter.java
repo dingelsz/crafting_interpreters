@@ -158,6 +158,13 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
     }
 
     @Override
+    public Object visitLambdaExpr(Expr.Lambda expr) {
+	LoxLambda lambda = new LoxLambda(expr, environment);
+	return lambda;
+
+    }
+
+    @Override
     public Object visitAssignExpr(Expr.Assign expr) {
 	Object value = evaluate(expr.value);
 	environment.assign(expr.name, value);
@@ -251,7 +258,7 @@ class Interpreter implements Expr.Visitor<Object>, Stmt.Visitor<Void> {
 	}
 
 	LoxCallable function = (LoxCallable)callee;
-	if (arguments.size() != function.arity()) {
+	if (function.arity() > 0 && arguments.size() != function.arity()) {
 	    throw new RuntimeError(expr.paren, "Expected " + function.arity() + " arguments but got " + arguments.size() + ".");
 	}
 	return function.call(this, arguments);

@@ -25,7 +25,15 @@ class Parser {
     }
     
     private Expr expression() {
-	return assignment();
+	return lambda();
+    }
+
+    private Expr lambda() {
+	if (match(LAMBDA_START)) {
+	    List<Stmt> body = block();
+	    return new Expr.Lambda(body);
+	}
+	return assignment();	    
     }
 
     private Expr assignment() {
@@ -329,7 +337,7 @@ class Parser {
 	if (match(NUMBER, STRING)) return new Expr.Literal(previous().literal);
 
 	if (match(IDENTIFIER)) return new Expr.Variable(previous());
-	
+
 	if (match(LEFT_PAREN)) {
 	    Expr expr = expression();
 	    consume(RIGHT_PAREN, "Expect ')' after expression.");
